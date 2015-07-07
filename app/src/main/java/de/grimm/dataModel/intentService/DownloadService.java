@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.grimm.dataModel.HandleXML;
@@ -28,7 +29,7 @@ public class DownloadService extends IntentService {
     public static final int STATUS_ERROR = 2;
     private static final String TAG = "DownloadService";
     static int itemTitlesSize, itemDescriptionsSize, itemImagesSize;
-    private ArrayList<String> itemImages, itemDescriptions, itemTitles;
+    private List<String> itemImages, itemDescriptions, itemTitles;
 
 
     public DownloadService() {
@@ -101,8 +102,8 @@ public class DownloadService extends IntentService {
 
 
         Map<String, ArrayList<String>> map = new HashMap();
-        map.put(PARAM_TITLES_VAL, itemTitles);
-        map.put(PARAM_DESCRIPTION_VAL, itemDescriptions);
+        map.put(PARAM_TITLES_VAL, (ArrayList<String>) itemTitles);
+        map.put(PARAM_DESCRIPTION_VAL, (ArrayList<String>) itemDescriptions);
 
         return map;
     }

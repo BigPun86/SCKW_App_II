@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import adelgrimm.sckw_appii.MainActivity;
 import adelgrimm.sckw_appii.R;
@@ -34,7 +35,7 @@ public class VereinNewsFragment extends Fragment implements AbsListView.OnItemCl
      * Views.
      */
     private MyListAdapter mAdapter;
-    private ArrayList listItemList;
+    private List listItemList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

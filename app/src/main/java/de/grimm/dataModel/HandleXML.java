@@ -13,13 +13,14 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HandleXML {
     public volatile boolean parsingComplete = true;
     int newsTitles, newsDescriptions, newsImage = 0;
-    ArrayList<String> listTitles = new ArrayList<String>();
-    ArrayList<String> listDesc = new ArrayList<String>();
-    ArrayList<String> listImages = new ArrayList<String>();
+    List<String> listTitles = new ArrayList<String>();
+    List<String> listDesc = new ArrayList<String>();
+    List<String> listImages = new ArrayList<String>();
     private String urlString = null;
     private XmlPullParserFactory xmlFactoryObject;
 
@@ -27,65 +28,52 @@ public class HandleXML {
         this.urlString = url;
     }
 
-    public ArrayList<String> getListImages() {
+    public List<String> getListImages() {
         return listImages;
     }
 
-    public void setListImages(ArrayList<String> list) {
+    public void setListImages(List<String> list) {
         this.listImages = list;
     }
 
-    public ArrayList<String> getListDesc() {
+    public List<String> getListDesc() {
         return listDesc;
     }
 
-    public void setListDesc(ArrayList<String> listDesc) {
+    public void setListDesc(List<String> listDesc) {
         this.listDesc = listDesc;
     }
 
-    public ArrayList<String> getListTitles() {
+    public List<String> getListTitles() {
         return listTitles;
     }
 
-    public void setListTitle(ArrayList<String> list) {
+    public void setListTitle(List<String> list) {
         this.listTitles = list;
     }
 
     public void parseXMLAndStoreIt(XmlPullParser myParser) {
         int event;
         String text = null;
-
         try {
             event = myParser.getEventType();
-
             while (event != XmlPullParser.END_DOCUMENT) {
                 String name = myParser.getName();
-
                 switch (event) {
                     case XmlPullParser.START_TAG:
                         break;
-
                     case XmlPullParser.TEXT:
                         text = myParser.getText();
                         break;
-
                     case XmlPullParser.END_TAG:
-
                         if (name.equals("title")) {
                             listTitles.add(text);
                             setListTitle(listTitles);
                             newsTitles++;
-//                        } else if (name.equals("image")) {
-//                            listImages.add(text);
-//                            setListTitle(listImages);
-//                            newsTitles++;
-//                            Log.d("IMAGE String: ", text);
-//                            Log.d("IMAGE ArrayList: ", String.valueOf(listImages.size()));
-
+//
                         } else if (name.equals("description")) {
 //                            listDesc.add(TransformHTMLText.br2nl(text));
                             listDesc.add(TransformHTMLText.html2text(text));
-
                             setListDesc(listDesc);
                             newsDescriptions++;
                         } else {
@@ -94,9 +82,7 @@ public class HandleXML {
                 }
                 event = myParser.next();
             }
-
             parsingComplete = false;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
