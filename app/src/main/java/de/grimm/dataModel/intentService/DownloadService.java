@@ -26,11 +26,9 @@ public class DownloadService extends IntentService {
     public static final int STATUS_RUNNING = 0;
     public static final int STATUS_FINISHED = 1;
     public static final int STATUS_ERROR = 2;
-
-    private ArrayList<String> itemImages, itemDescriptions, itemTitles;
-    static int itemTitlesSize, itemDescriptionsSize, itemImagesSize;
-
     private static final String TAG = "DownloadService";
+    static int itemTitlesSize, itemDescriptionsSize, itemImagesSize;
+    private ArrayList<String> itemImages, itemDescriptions, itemTitles;
 
 
     public DownloadService() {
@@ -64,6 +62,15 @@ public class DownloadService extends IntentService {
                     if (null != resultTitles && resultTitles.size() > 0) {
                         bundle.putStringArrayList("resultTitle", resultTitles);
                         bundle.putStringArrayList("resultDescription", resultDescription);
+
+                        // Gebe dem receiver einen Schluessel mit um in SplashScreen die News voneinander zu trennen fuer die verschiedenen Views/Fragmente NEWS
+                        if (s.equals(url[0])) {
+                            bundle.putInt("newsKey", 1);
+                        } else if (s.equals(url[1])) {
+                            bundle.putInt("newsKey", 2);
+                        } else if (s.equals(url[2])) {
+                            bundle.putInt("newsKey", 3);
+                        }
                         receiver.send(STATUS_FINISHED, bundle);
                     }
                 } catch (Exception e) {
@@ -73,8 +80,9 @@ public class DownloadService extends IntentService {
                     receiver.send(STATUS_ERROR, bundle);
                 }
             }
+            this.stopSelf();
         }
-        this.stopSelf();
+
     }
 
     private Map<String, ArrayList<String>> downloadData(String url) {

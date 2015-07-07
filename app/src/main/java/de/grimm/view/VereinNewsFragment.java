@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,19 +24,17 @@ public class VereinNewsFragment extends Fragment implements AbsListView.OnItemCl
     // TODO: For TheNews!!!!
 //    private OnFragmentInteractionListener mListener;
 
+    String[] titles, text;
     /**
      * The fragment's ListView/GridView.
      */
     private AbsListView mListView;
-
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
     private MyListAdapter mAdapter;
     private ArrayList listItemList;
-
-    String[] titles, text;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,9 +47,9 @@ public class VereinNewsFragment extends Fragment implements AbsListView.OnItemCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listItemList = new ArrayList();
-        if (((MainActivity) getActivity()).getTitlesArray() != null && ((MainActivity) getActivity()).getDescArray() != null) {
-            titles = ((MainActivity) getActivity()).getTitlesArray();
-            text = ((MainActivity) getActivity()).getDescArray();
+        if (((MainActivity) getActivity()).getTitlesForVerein() != null && ((MainActivity) getActivity()).getTextForVerein() != null) {
+            titles = ((MainActivity) getActivity()).getTitlesForVerein();
+            text = ((MainActivity) getActivity()).getTextForVerein();
             setupListView();
         } else {
             listItemList.add(new MyListItem("Loading...", "Swipe Down for Update"));
@@ -72,7 +69,7 @@ public class VereinNewsFragment extends Fragment implements AbsListView.OnItemCl
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
@@ -108,14 +105,14 @@ public class VereinNewsFragment extends Fragment implements AbsListView.OnItemCl
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        void onFragmentInteraction(String id);
     }
 
 

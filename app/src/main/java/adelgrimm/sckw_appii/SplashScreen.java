@@ -8,8 +8,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import de.grimm.dataModel.DataObjectContainer;
 import de.grimm.dataModel.intentService.DownloadResultReceiver;
 import de.grimm.dataModel.intentService.DownloadService;
@@ -19,28 +17,28 @@ import de.grimm.dataModel.intentService.DownloadService;
  */
 public class SplashScreen extends Activity implements DownloadResultReceiver.Receiver {
 
-    public static final String TITLES = "TITLES";
-    public static final String DESCRIPTIONS = "DESC";
+    public static final String TITLES_AKTIVE = "TITLES_A";
+    public static final String DESCRIPTIONS_AKTIVE = "DESC_A";
+    public static final String TITLES_VEREIN = "TITLES_V";
+    public static final String DESCRIPTIONS_VEREIN = "DESC_V";
+    public static final String TITLES_JUNIOREN = "TITLES_J";
+    public static final String DESCRIPTIONS_JUNIOREN = "DESC_J";
+    static boolean loading = false;
+    // Splash screen timer
+    private static int SPLASH_TIME_OUT = 100;
+    private static String BLOG_AKTIVE_NEWS_URL = "http://sckw.de/rss/blog/Aktive";
+    private static String BLOG_VEREIN_NEWS_URL = "http://sckw.de/rss/blog/Verein";
+    private static String BLOG_JUNIOREN_NEWS_URL = "http://sckw.de/rss/blog/Junioren";
+    DataObjectContainer dataObjectContainer;
     private ProgressBar progressBar;
     private int progressStatus = 0;
     private TextView textView;
     private Handler handler = new Handler();
-
-    static boolean loading = false;
-
-    // Splash screen timer
-    private static int SPLASH_TIME_OUT = 100;
-
-
-    private static String BLOG_AKTIVE_NEWS_URL = "http://sckw.de/rss/blog/Aktive";
-    private static String BLOG_VEREIN_NEWS_URL = "http://sckw.de/rss/blog/Verein";
-    private static String BLOG_JUNIOREN_NEWS_URL = "http://sckw.de/rss/blog/Junioren";
     private DownloadResultReceiver mReceiver;
-    private ArrayList<String> listImages, listDescriptions, listTitles;
     private String size;
-    String[] titlesArray, descArray;
-
-    DataObjectContainer dataObjectContainer;
+    private String[] titlesArray, descArray;
+    private String[] titlesForAktive, textForAktive, titlesForVerein, textForVerein, titlesForJunioren, textForJunioren;
+    private int newsKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,16 +107,42 @@ public class SplashScreen extends Activity implements DownloadResultReceiver.Rec
             case DownloadService.STATUS_FINISHED:
                 /* Hide progress & extract result from bundle */
                 setProgressBarIndeterminateVisibility(false);
-                listTitles = resultData.getStringArrayList("resultTitle");
-                listDescriptions = resultData.getStringArrayList("resultDescription");
 
-                titlesArray = listTitles.toArray(new String[listTitles.size()]);
-                descArray = listDescriptions.toArray(new String[listDescriptions.size()]);
+                titlesArray = resultData.getStringArrayList("resultTitle").toArray(new String[resultData.getStringArrayList("resultTitle").size()]);
+                descArray = resultData.getStringArrayList("resultDescription").toArray(new String[resultData.getStringArrayList("resultDescription").size()]);
+                newsKey = resultData.getInt("newsKey");
 
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                i.putExtra(TITLES, titlesArray);
-                i.putExtra(DESCRIPTIONS, descArray);
-                startActivity(i);
+
+                switch (newsKey) {
+
+                    case 1:
+                        // News for AktiveNewsFragment
+                        titlesForAktive = titlesArray;
+                        textForAktive = descArray;
+                        break;
+                    case 2:
+                        // News for VereinNewsFragment
+                        titlesForVerein = titlesArray;
+                        textForVerein = descArray;
+                        break;
+                    case 3:
+                        // News for JuniorenNewsFragment
+                        titlesForJunioren = titlesArray;
+                        textForJunioren = descArray;
+                        break;
+                }
+
+                // Newskey is only 3 when all news have bin fetched from Service, Then put in Bundle
+                if (newsKey == 3) {
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    i.putExtra(TITLES_AKTIVE, titlesForAktive);
+                    i.putExtra(DESCRIPTIONS_AKTIVE, textForAktive);
+                    i.putExtra(TITLES_VEREIN, titlesForVerein);
+                    i.putExtra(DESCRIPTIONS_VEREIN, textForVerein);
+                    i.putExtra(TITLES_JUNIOREN, titlesForJunioren);
+                    i.putExtra(DESCRIPTIONS_JUNIOREN, textForJunioren);
+                    startActivity(i);
+                }
 
                 break;
 

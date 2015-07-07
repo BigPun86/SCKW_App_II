@@ -18,14 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import de.grimm.view.AktivenNewsFragment;
-
 
 public class MainActivity extends AppCompatActivity {
 
 
     private CharSequence mTitle;
-    String[] titlesArray, descArray;
+//    String[] titlesArray, descArray;
+
+    private String[] titlesForAktive, textForAktive, titlesForVerein, textForVerein, titlesForJunioren, textForJunioren;
 
     private Toolbar toolbar;
     private DrawerLayout mDrawer;
@@ -56,16 +56,24 @@ public class MainActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        titlesArray = i.getStringArrayExtra(SplashScreen.TITLES);
-        descArray = i.getStringArrayExtra(SplashScreen.DESCRIPTIONS);
-        setTitlesArray(titlesArray);
-        setDescArray(descArray);
+        titlesForAktive = i.getStringArrayExtra(SplashScreen.TITLES_AKTIVE);
+        textForAktive = i.getStringArrayExtra(SplashScreen.DESCRIPTIONS_AKTIVE);
+        titlesForVerein = i.getStringArrayExtra(SplashScreen.TITLES_VEREIN);
+        textForVerein = i.getStringArrayExtra(SplashScreen.DESCRIPTIONS_VEREIN);
+        titlesForJunioren = i.getStringArrayExtra(SplashScreen.TITLES_JUNIOREN);
+        textForJunioren = i.getStringArrayExtra(SplashScreen.DESCRIPTIONS_JUNIOREN);
+        setTitlesForAktive(titlesForAktive);
+        setTextForAktive(textForAktive);
+        setTitlesForVerein(titlesForVerein);
+        setTextForVerein(textForVerein);
+        setTitlesForJunioren(titlesForJunioren);
+        setTextForJunioren(textForJunioren);
 
-        AktivenNewsFragment fragment = new AktivenNewsFragment();
-        Bundle b = new Bundle();
-        b.putStringArray(SplashScreen.TITLES, titlesArray);
-        b.putStringArray(SplashScreen.DESCRIPTIONS, descArray);
-        fragment.setArguments(b);
+//        AktivenNewsFragment fragment = new AktivenNewsFragment();
+//        Bundle b = new Bundle();
+//        b.putStringArray(SplashScreen.TITLES, titlesArray);
+//        b.putStringArray(SplashScreen.DESCRIPTIONS, descArray);
+//        fragment.setArguments(b);
 
 
         // Find our drawer view
@@ -181,6 +189,54 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    public String[] getTitlesForAktive() {
+        return titlesForAktive;
+    }
+
+    public void setTitlesForAktive(String[] titlesForAktive) {
+        this.titlesForAktive = titlesForAktive;
+    }
+
+    public String[] getTextForAktive() {
+        return textForAktive;
+    }
+
+    public void setTextForAktive(String[] textForAktive) {
+        this.textForAktive = textForAktive;
+    }
+
+    public String[] getTitlesForVerein() {
+        return titlesForVerein;
+    }
+
+    public void setTitlesForVerein(String[] titlesForVerein) {
+        this.titlesForVerein = titlesForVerein;
+    }
+
+    public String[] getTextForVerein() {
+        return textForVerein;
+    }
+
+    public void setTextForVerein(String[] textForVerein) {
+        this.textForVerein = textForVerein;
+    }
+
+    public String[] getTitlesForJunioren() {
+        return titlesForJunioren;
+    }
+
+    public void setTitlesForJunioren(String[] titlesForJunioren) {
+        this.titlesForJunioren = titlesForJunioren;
+    }
+
+    public String[] getTextForJunioren() {
+        return textForJunioren;
+    }
+
+    public void setTextForJunioren(String[] textForJunioren) {
+        this.textForJunioren = textForJunioren;
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -190,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public PlaceholderFragment() {
+        }
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -201,9 +260,6 @@ public class MainActivity extends AppCompatActivity {
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
-        }
-
-        public PlaceholderFragment() {
         }
 
         @Override
@@ -221,19 +277,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String[] getTitlesArray() {
-        return titlesArray;
-    }
 
-    public void setTitlesArray(String[] titlesArray) {
-        this.titlesArray = titlesArray;
-    }
-
-    public String[] getDescArray() {
-        return descArray;
-    }
-
-    public void setDescArray(String[] descArray) {
-        this.descArray = descArray;
-    }
 }

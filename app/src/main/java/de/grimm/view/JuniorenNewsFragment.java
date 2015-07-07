@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,19 +24,17 @@ public class JuniorenNewsFragment extends Fragment implements AbsListView.OnItem
     // TODO: For TheNews!!!!
 //    private OnFragmentInteractionListener mListener;
 
+    String[] titles, text;
     /**
      * The fragment's ListView/GridView.
      */
     private AbsListView mListView;
-
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
     private MyListAdapter mAdapter;
     private ArrayList listItemList;
-
-    String[] titles, text;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,9 +47,9 @@ public class JuniorenNewsFragment extends Fragment implements AbsListView.OnItem
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listItemList = new ArrayList();
-        if (((MainActivity) getActivity()).getTitlesArray() != null && ((MainActivity) getActivity()).getDescArray() != null) {
-            titles = ((MainActivity) getActivity()).getTitlesArray();
-            text = ((MainActivity) getActivity()).getDescArray();
+        if (((MainActivity) getActivity()).getTitlesForJunioren() != null && ((MainActivity) getActivity()).getTextForJunioren() != null) {
+            titles = ((MainActivity) getActivity()).getTitlesForJunioren();
+            text = ((MainActivity) getActivity()).getTextForJunioren();
             setupListView();
         } else {
             listItemList.add(new MyListItem("Loading...", "Swipe Down for Update"));
@@ -72,7 +69,7 @@ public class JuniorenNewsFragment extends Fragment implements AbsListView.OnItem
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
@@ -115,7 +112,7 @@ public class JuniorenNewsFragment extends Fragment implements AbsListView.OnItem
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        void onFragmentInteraction(String id);
     }
 
 
