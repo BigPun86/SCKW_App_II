@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TableLayout
+        android:id="@+id/main_bottomTablelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:drawable/dark_header"
+        android:stretchColumns="0,1,2">
+
+        <TableRow android:id="@+id/tableRowHeader">
+
+            <TextView
+                android:id="@+id/tableRowHeaderText"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:scaleType="center" />
+
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRow1">
+
+            <ImageButton
+                android:id="@+id/mainBottomActionBar_imageButton_textNote"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:onClick="onClick"
+                android:scaleType="center"
+                android:src="@android:drawable/btn_dialog" />
+
+            <ImageButton
+                android:id="@+id/mainBottomActionBar_imageButton_scetchNote"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:onClick="onClick"
+                android:scaleType="center"
+                android:src="@android:drawable/ic_menu_edit" />
+
+            <ImageButton
+                android:id="@+id/mainBottomActionBar_imageButton_voiceNote"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:onClick="onClick"
+                android:scaleType="center"
+                android:src="@android:drawable/ic_btn_speak_now" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="-4dp">
+
+            <TextView
+                android:id="@+id/mainBottomActionBar_textView_text_noteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Text"
+                android:textColor="@android:color/primary_text_dark" />
+
+            <TextView
+                android:id="@+id/mainBottomActionBar_textView_scetchNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Sketch &#38; Higlight"
+                android:textColor="@android:color/primary_text_dark" />
+
+            <TextView
+                android:id="@+id/mainBottomActionBar_textView_voiceNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Recorder"
+                android:textColor="@android:color/primary_text_dark" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_bottomTablelayout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/titleView"
+        android:layout_margin="10dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

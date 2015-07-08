@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
+
+        // Values for News Fragments
         titlesForAktive = i.getStringArrayExtra(SplashScreen.TITLES_AKTIVE);
         textForAktive = i.getStringArrayExtra(SplashScreen.DESCRIPTIONS_AKTIVE);
         titlesForVerein = i.getStringArrayExtra(SplashScreen.TITLES_VEREIN);
@@ -69,11 +71,13 @@ public class MainActivity extends AppCompatActivity {
         setTitlesForJunioren(titlesForJunioren);
         setTextForJunioren(textForJunioren);
 
-//        AktivenNewsFragment fragment = new AktivenNewsFragment();
-//        Bundle b = new Bundle();
-//        b.putStringArray(SplashScreen.TITLES, titlesArray);
-//        b.putStringArray(SplashScreen.DESCRIPTIONS, descArray);
-//        fragment.setArguments(b);
+//        // Values for TheNews Activity
+//        i.putExtra(SplashScreen.TITLES_AKTIVE, titlesForAktive);
+//        i.putExtra(SplashScreen.DESCRIPTIONS_AKTIVE, textForAktive);
+//        i.putExtra(SplashScreen.TITLES_VEREIN, titlesForVerein);
+//        i.putExtra(SplashScreen.DESCRIPTIONS_VEREIN, textForVerein);
+//        i.putExtra(SplashScreen.TITLES_JUNIOREN, titlesForJunioren);
+//        i.putExtra(SplashScreen.DESCRIPTIONS_JUNIOREN, textForJunioren);
 
 
         // Find our drawer view

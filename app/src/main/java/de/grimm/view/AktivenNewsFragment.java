@@ -1,5 +1,6 @@
 package de.grimm.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,7 +54,6 @@ public class AktivenNewsFragment extends Fragment implements AbsListView.OnItemC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         listItemList = new ArrayList();
         if (((MainActivity) getActivity()).getTitlesForAktive() != null && ((MainActivity) getActivity()).getTextForAktive() != null) {
             titles = ((MainActivity) getActivity()).getTitlesForAktive();
@@ -62,11 +62,9 @@ public class AktivenNewsFragment extends Fragment implements AbsListView.OnItemC
         } else {
             listItemList.add(new MyListItem("Loading...", "Swipe Down for Update"));
         }
-
     }
 
     private void setupListView() {
-
         for (int i = 0; i < titles.length; i++) {
             listItemList.add(new MyListItem(titles[i], (text[i]).substring(0, 75) + "..."));
         }
@@ -92,6 +90,11 @@ public class AktivenNewsFragment extends Fragment implements AbsListView.OnItemC
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         MyListItem item = (MyListItem) this.listItemList.get(position);
         Toast.makeText(getActivity(), item.getItemTitle() + " Clicked!", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getActivity(), TheNews.class);
+        intent.putExtra("TIT", titles[position]);
+        intent.putExtra("TXT", text[position]);
+        startActivity(intent);
     }
 
 
